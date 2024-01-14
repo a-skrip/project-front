@@ -66,7 +66,7 @@
                     + item.level + "</td><td>"
                     + new Date(item.birthday).toLocaleDateString() + "</td><td>"
                     + item.banned + "</td><td>"
-                    + "<button id='button_edit_" + item.id + "'>"
+                    + "<button id='button_edit_" + item.id + "'onclick='editAcc(" + item.id + ")'>"
                     + "<img src='img/edit.png'>"
                     + "</button>" + "</td><td>"
                     +  "<button id='button_delete_" + item.id + "'onclick='deleteAcc(" + item.id + ")'>"
@@ -122,6 +122,79 @@
                 show_list(getCurrentPage());
             }
         });
+    }
+
+    function editAcc(id) {
+        let identifier_edit ="#button_edit_" + id;
+        let identifier_delete = "#button_delete_" + id;
+
+        $(identifier_delete).remove();
+
+        let save_image_tag = "<img src='img/save.png'>";
+        $(identifier_edit).html(save_image_tag);
+
+        let current_tr_element = $(identifier_edit).parent().parent();
+        let children = current_tr_element.children();
+
+        let td_name = children[1];
+        td_name.innerHTML = "<input id='input_name_" + id + "' type='text' value='" +td_name.innerHTML + "'>";
+
+        let td_title = children[2];
+        td_title.innerHTML = "<input id='input_title_" + id + "' type='text' value='" +td_title.innerHTML + "'>";
+
+        let td_race = children[3];
+        let race_id = "#select_race_" + id;
+        let race_current_value = td_race.innerHTML;
+        td_race.innerHTML = getDropdownRaceHtml(id);
+        $(race_id).val(race_current_value).change();
+
+        let td_profession = children[4];
+        let profession_id = "#select_profession_" + id;
+        let profession_current_value = td_profession.innerHTML;
+        td_profession.innerHTML = getDropdownProfessionHtml(id);
+        $(profession_id).val(profession_current_value).change();
+
+        let td_banned = children[7];
+        let banned_id = "#select_banned_" + id;
+        let banned_current_value = td_banned.innerHTML;
+        td_banned.innerHTML = getDropdownBannedHtml(id);
+        $(banned_id).val(banned_current_value).change();
+    }
+
+    function getDropdownRaceHtml(id) {
+        let race_id = "select_race_" + id;
+        return "<label for='race'></label>"
+            + "<select id=" + race_id + " name='race'>"
+            + "<option value='HUMAN'>HUMAN</option>"
+            + "<option value='DWARF'>DWARF</option>"
+            + "<option value='ELF'>ELF</option>"
+            + "<option value='GIANT'>GIANT</option>"
+            + "<option value='ORC'>ORC</option>"
+            + "<option value='TROLL'>TROLL</option>"
+            + "<option value='HOBBIT'>HOBBIT</option>"
+    }
+
+    function getDropdownProfessionHtml(id) {
+        let profession_id = "select_profession_" + id;
+        return "<label for='race'></label>"
+            + "<select id=" + profession_id + " name='race'>"
+            + "<option value='WARRIOR'>WARRIOR</option>"
+            + "<option value='ROGUE'>ROGUE</option>"
+            + "<option value='SORCERER'>SORCERER</option>"
+            + "<option value='CLERIC'>CLERIC</option>"
+            + "<option value='PALADIN'>PALADIN</option>"
+            + "<option value='NAZGUL'>NAZGUL</option>"
+            + "<option value='WARLOCK'>WARLOCKT</option>"
+            + "<option value='DRUID'>DRUID</option>"
+    }
+
+    function getDropdownBannedHtml(id) {
+        let banned_id = "select_banned_" + id;
+        return "<label for='race'></label>"
+            + "<select id=" + banned_id + " name='race'>"
+            + "<option value='true'>TRUE</option>"
+            + "<option value='false'>FALSE</option>"
+
     }
 
     function getCurrentPage() {
