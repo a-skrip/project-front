@@ -83,6 +83,10 @@
 </select>
 <br><br>
 
+<span>
+    <button type="submit" onclick="createAcc()">SAVE</button>
+</span>
+
 <script>
     function show_list(page_number) {
         $("tr:has(td)").remove();
@@ -216,13 +220,13 @@
     function createAcc() {
         let value_name = $("#input_name_new").val();
         let value_title = $("#input_title_new").val();
-        let value_race = $("#select_race_new").val();
-        let value_profession = $("#select_profession_new").val();
-        let value_level = $("#select_level_new").val();
-        let value_birthday = $("#select_birthday_new").val();
-        let value_banned = $("#select_banned_new").val();
+        let value_race = $("#input_race_new").val();
+        let value_profession = $("#input_profession_new").val();
+        let value_level = $("#input_level_new").val();
+        let value_birthday = $("#input_birthday_new").val();
+        let value_banned = $("#input_banned_new").val();
 
-        let current_page = window.location.href;
+        // let current_page = window.location.href;
 
         let url = "/rest/players/";
         $.ajax({
@@ -248,10 +252,12 @@
                 $("#select_level_new").val("");
                 $("#select_birthday_new").val("");
                 $("#select_banned_new").val("");
-            }
+
                 show_list(getCurrentPage());
             }
+        })
     }
+
 
     function saveAcc(id) {
         let value_name = $("#input_name_" + id).val();
